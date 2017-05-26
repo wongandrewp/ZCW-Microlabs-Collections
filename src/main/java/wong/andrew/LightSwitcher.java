@@ -1,8 +1,8 @@
 package wong.andrew;
 
-import sun.jvm.hotspot.utilities.Bits;
-
+import java.util.ArrayDeque;
 import java.util.BitSet;
+import java.util.Deque;
 
 /**
  * Created by andrewwong on 5/26/17.
@@ -16,20 +16,19 @@ public class LightSwitcher {
     public static BitSet turnOnSwitches(BitSet switches, BitSet switchesToTurnOn) {
         int lastBitIndex = findLastBitIndex(switches);
         BitSet switchesClone = (BitSet) switches.clone();
-        for(int i = lastBitIndex; i >= 0; i--) {
+        for (int i = lastBitIndex; i >= 0; i--) {
             // conditional statement comparing switches[i] with switchesToTurnOn[i]
-            if (switchesToTurnOn.get(i)){
+            if (switchesToTurnOn.get(i)) {
                 switchesClone.set(i);
             }
         }
         return switchesClone;
     }
 
-    private static int findLastBitIndex(BitSet switches){
-        if(switches.length()%2==0){
-            return switches.length() -1;
-        }
-        else {
+    private static int findLastBitIndex(BitSet switches) {
+        if (switches.length() % 2 == 0) {
+            return switches.length() - 1;
+        } else {
             return switches.length();
         }
     }
@@ -39,14 +38,14 @@ public class LightSwitcher {
      * Remember to use bit notation (0bxxxxxxxx) and a bit operator.
      */
     public static BitSet turnOnAllSwitches(BitSet switches) {
-        if (switches.length()==0){
+        if (switches.length() == 0) {
             return fromString("11111111");
         }
         int lastBitIndex = findLastBitIndex(switches);
         BitSet switchesClone = (BitSet) switches.clone();
-        for(int i = lastBitIndex; i >= 0; i--) {
+        for (int i = lastBitIndex; i >= 0; i--) {
 
-                switchesClone.set(i);
+            switchesClone.set(i);
 
         }
         return switchesClone;
@@ -60,9 +59,9 @@ public class LightSwitcher {
     public static BitSet turnOffSwitches(BitSet switches, BitSet switchesToTurnOff) {
         int lastBitIndex = findLastBitIndex(switches);
         BitSet switchesClone = (BitSet) switches.clone();
-        for(int i = lastBitIndex; i >= 0; i--) {
+        for (int i = lastBitIndex; i >= 0; i--) {
             // conditional statement comparing switches[i] with switchesToTurnOn[i]
-            if (switchesToTurnOff.get(i)){
+            if (switchesToTurnOff.get(i)) {
                 switchesClone.clear(i);
             }
         }
@@ -87,10 +86,9 @@ public class LightSwitcher {
     public static BitSet flipSwitches(BitSet switches, BitSet switchesToFlip) {
         int lastBitIndex = findLastBitIndex(switches);
         BitSet switchesClone = (BitSet) switches.clone();
-        for(int i = lastBitIndex; i >= 0; i--) {
-            // conditional statement comparing switches[i] with switchesToTurnOn[i]
-            if (switchesToFlip.get(i)){
-                flipSubSwitch(switchesClone, i);
+        for (int i = lastBitIndex; i >= 0; i--) {
+            if (switchesToFlip.get(i)) {
+                flipSwitch(switchesClone, i);
             }
         }
         return switchesClone;
@@ -101,15 +99,22 @@ public class LightSwitcher {
      * NOTE: An integer has more than 8 bits, so find a way to only return the rightmost 8 bits.
      */
     public static BitSet flipAllSwitches(BitSet switches) {
-        return new BitSet(0);
+        if (switches.equals(fromString("0"))) {
+            return fromString("11111111");
+        }
+        int lastBitIndex = findLastBitIndex(switches);
+        BitSet switchesClone = (BitSet) switches.clone();
+        for (int i = lastBitIndex; i >= 0; i--) {
+            flipSwitch(switchesClone, i);
+        }
+        return switchesClone;
 
     }
 
-    private static void flipSubSwitch(BitSet subSwitches, int index) {
-        if(subSwitches.get(index)){
+    private static void flipSwitch(BitSet subSwitches, int index) {
+        if (subSwitches.get(index)) {
             subSwitches.clear(index);
-        }
-        else {
+        } else {
             subSwitches.set(index);
         }
     }
@@ -119,8 +124,12 @@ public class LightSwitcher {
      * Count switches from 0, and from right to left.
      * So, a byte reads 76543210
      */
-    public static BitSet getSwitchPositionAt(BitSet switches, int position) {
-        return new BitSet(0);
+    public static int getSwitchPositionAt(BitSet switches, int position) {
+        if (switches.get(position)) {
+            return 1;
+        } else {
+            return 0;
+        }
 
     }
 
@@ -128,9 +137,16 @@ public class LightSwitcher {
      * Move all the the bits to the right `count` places.
      */
     public static BitSet moveRightBy(BitSet switches, int count) {
-        return new BitSet(0);
+        BitSet switchesClone = (BitSet) switches.clone();
+        switchesClone.clear(0, count);
+        if(count==switches.length()){
+            return fromString("0");
+        }
+        switchesClone.flip(count, switches.length());
+        return switchesClone;
 
     }
+
 
     /**
      * Move all the the bits to the left `count` places.
@@ -149,18 +165,18 @@ public class LightSwitcher {
 //
 //        return String.format("%8s", Integer.toBinaryString((switches & 0b11111111))).replace(' ', '0');
 //    }
-
     public static String viewSwitches(BitSet bs) {
         return Long.toString(bs.toLongArray()[0], 2);
     }
 
-    public static int leftShiftSteps(BitSet switches){
+    public static int leftShiftSteps(BitSet switches) {
         return 0;
     }
 
-    public static int rightShiftSteps(BitSet switches){
+    public static int rightShiftSteps(BitSet switches) {
         return 0;
     }
+
     public static BitSet fromString(final String s) {
         return BitSet.valueOf(new long[]{Long.parseLong(s, 2)});
     }

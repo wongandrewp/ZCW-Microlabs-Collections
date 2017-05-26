@@ -140,6 +140,7 @@ public class LightSwitcherTest {
         BitSet expected6 = fromString("00000010");
         BitSet expected7 = fromString("00000001");
         BitSet expected8 = fromString("00000000");
+        System.out.println(expected7);
         assertEquals(expected1, result1);
         assertEquals(expected2, result2);
         assertEquals(expected3, result3);
