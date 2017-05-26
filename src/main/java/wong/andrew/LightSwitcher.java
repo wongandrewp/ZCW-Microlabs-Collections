@@ -18,8 +18,8 @@ public class LightSwitcher {
         BitSet switchesClone = (BitSet) switches.clone();
         for(int i = lastBitIndex; i >= 0; i--) {
             // conditional statement comparing switches[i] with switchesToTurnOn[i]
-            if (!switchesToTurnOn.get(i)){
-                switchesClone.set(lastBitIndex-i);
+            if (switchesToTurnOn.get(i)){
+                switchesClone.set(i);
             }
         }
         return switchesClone;
@@ -39,7 +39,17 @@ public class LightSwitcher {
      * Remember to use bit notation (0bxxxxxxxx) and a bit operator.
      */
     public static BitSet turnOnAllSwitches(BitSet switches) {
-        return new BitSet(0);
+        if (switches.length()==0){
+            return fromString("11111111");
+        }
+        int lastBitIndex = findLastBitIndex(switches);
+        BitSet switchesClone = (BitSet) switches.clone();
+        for(int i = lastBitIndex; i >= 0; i--) {
+
+                switchesClone.set(i);
+
+        }
+        return switchesClone;
     }
 
     /**
@@ -48,7 +58,15 @@ public class LightSwitcher {
      * And a '1' in a position in 'switchesToTurnOff' means to turn that switch to off.
      */
     public static BitSet turnOffSwitches(BitSet switches, BitSet switchesToTurnOff) {
-        return new BitSet(0);
+        int lastBitIndex = findLastBitIndex(switches);
+        BitSet switchesClone = (BitSet) switches.clone();
+        for(int i = lastBitIndex; i >= 0; i--) {
+            // conditional statement comparing switches[i] with switchesToTurnOn[i]
+            if (switchesToTurnOff.get(i)){
+                switchesClone.clear(i);
+            }
+        }
+        return switchesClone;
 
     }
 
@@ -67,8 +85,15 @@ public class LightSwitcher {
      * I.E switches = 1 0 1 and switchesToFlip = 1 1 0 should return 0 1 1.
      */
     public static BitSet flipSwitches(BitSet switches, BitSet switchesToFlip) {
-        return new BitSet(0);
-
+        int lastBitIndex = findLastBitIndex(switches);
+        BitSet switchesClone = (BitSet) switches.clone();
+        for(int i = lastBitIndex; i >= 0; i--) {
+            // conditional statement comparing switches[i] with switchesToTurnOn[i]
+            if (switchesToFlip.get(i)){
+                flipSubSwitch(switchesClone, i);
+            }
+        }
+        return switchesClone;
     }
 
     /**
@@ -78,6 +103,15 @@ public class LightSwitcher {
     public static BitSet flipAllSwitches(BitSet switches) {
         return new BitSet(0);
 
+    }
+
+    private static void flipSubSwitch(BitSet subSwitches, int index) {
+        if(subSwitches.get(index)){
+            subSwitches.clear(index);
+        }
+        else {
+            subSwitches.set(index);
+        }
     }
 
     /**
