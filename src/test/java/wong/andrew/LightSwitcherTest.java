@@ -180,9 +180,9 @@ public class LightSwitcherTest {
 
     @Test
     public void testViewSwitches() {
-        assertEquals("11111111", LightSwitcher.viewSwitches(0b111111111111));
-        assertEquals("00000000", LightSwitcher.viewSwitches(0));
-        assertEquals("01010101", LightSwitcher.viewSwitches(0b111101010101));
+        assertEquals("11111111", LightSwitcher.viewSwitches(allOnes));
+        assertEquals("00000000", LightSwitcher.viewSwitches(allZeros));
+        assertEquals("01010101", LightSwitcher.viewSwitches(fromString("0b111101010101")));
     }
 
     @Test
