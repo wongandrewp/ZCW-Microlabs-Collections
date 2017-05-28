@@ -140,7 +140,6 @@ public class LightSwitcherTest {
         BitSet expected6 = fromString("00000010");
         BitSet expected7 = fromString("00000001");
         BitSet expected8 = fromString("00000000");
-        System.out.println(expected7);
         assertEquals(expected1, result1);
         assertEquals(expected2, result2);
         assertEquals(expected3, result3);
@@ -206,11 +205,11 @@ public class LightSwitcherTest {
 
         //Then
         assertEquals("Number of steps should be 6", expected1, actual1);
-        assertEquals("Number of steps should be 10", expected1, actual1);
-        assertEquals("Number of steps should be 12", expected1, actual1);
-        assertEquals("Number of steps should be 4", expected1, actual1);
-        assertEquals("Number of steps should be 16", expected1, actual1);
-        assertEquals("Number of steps should be 8", expected1, actual1);
+        assertEquals("Number of steps should be 10", expected2, actual2);
+        assertEquals("Number of steps should be 12", expected3, actual3);
+        assertEquals("Number of steps should be 4", expected4, actual4);
+        assertEquals("Number of steps should be 16", expected5, actual5);
+        assertEquals("Number of steps should be 8", expected6, actual6);
 
     }
 

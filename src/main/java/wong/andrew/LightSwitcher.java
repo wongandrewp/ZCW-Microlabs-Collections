@@ -137,14 +137,17 @@ public class LightSwitcher {
      * Move all the the bits to the right `count` places.
      */
     public static BitSet moveRightBy(BitSet switches, int count) {
-        BitSet switchesClone = (BitSet) switches.clone();
-        switchesClone.clear(0, count);
         if(count==switches.length()){
             return fromString("0");
         }
-        switchesClone.flip(count, switches.length());
-        return switchesClone;
 
+        BitSet cloneSet = (BitSet) switches.clone();
+        cloneSet.clear(findLastBitIndex(switches) - count, findLastBitIndex(switches) + 1);
+        for(int i = 0; i <= findLastBitIndex(switches) - count; i++){
+            boolean origValue = switches.get(count + i);
+            cloneSet.set(i, origValue);
+        }
+        return cloneSet;
     }
 
 
@@ -153,8 +156,13 @@ public class LightSwitcher {
      * NOTE: An integer has more than 8 bits, so find a way to only return the rightmost 8 bits.
      */
     public static BitSet moveLeftBy(BitSet switches, int count) {
-        return new BitSet(0);
-
+        BitSet cloneSet = (BitSet) switches.clone();
+        cloneSet.clear(0, count);
+        for(int i = count; i < 8; i++){
+            boolean origValue = switches.get(i - count);
+            cloneSet.set(i, origValue);
+        }
+        return cloneSet;
     }
 
     /**
