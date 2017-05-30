@@ -25,12 +25,8 @@ public class LightSwitcher {
         return switchesClone;
     }
 
-    private static int findLastBitIndex(BitSet switches) {
-        if (switches.length() % 2 == 0) {
-            return switches.length() - 1;
-        } else {
-            return switches.length();
-        }
+    public static int findLastBitIndex(BitSet switches) {
+        return switches.size()/8 - 1;
     }
 
     /**
@@ -60,7 +56,6 @@ public class LightSwitcher {
         int lastBitIndex = findLastBitIndex(switches);
         BitSet switchesClone = (BitSet) switches.clone();
         for (int i = lastBitIndex; i >= 0; i--) {
-            // conditional statement comparing switches[i] with switchesToTurnOn[i]
             if (switchesToTurnOff.get(i)) {
                 switchesClone.clear(i);
             }
@@ -165,19 +160,8 @@ public class LightSwitcher {
         return cloneSet;
     }
 
-    /**
-     * This is written for you to help with debugging.  If you call System.out.println(viewSwitches(switches)),
-     * you can see the rightmost 8 bits of a given integer.
-     */
-//    public static String viewSwitches(BitSet switches) {
-//
-//        return String.format("%8s", Integer.toBinaryString((switches & 0b11111111))).replace(' ', '0');
-//    }
-    public static String viewSwitches(BitSet bs) {
-        return Long.toString(bs.toLongArray()[0], 2);
-    }
-
     public static int leftShiftSteps(BitSet switches) {
+        System.out.println(switches + " : " + switches.length());
         return 0;
     }
 

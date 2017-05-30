@@ -5,7 +5,7 @@ package wong.andrew;
 
 import org.junit.Before;
 import org.junit.Test;
-import wong.andrew.LightSwitcher;
+import wong.andrew.LightSwitcher.*;
 
 import java.util.BitSet;
 import static org.junit.Assert.assertEquals;
@@ -179,13 +179,6 @@ public class LightSwitcherTest {
     }
 
     @Test
-    public void testViewSwitches() {
-        assertEquals("11111111", LightSwitcher.viewSwitches(allOnes));
-        assertEquals("00000000", LightSwitcher.viewSwitches(allZeros));
-        assertEquals("01010101", LightSwitcher.viewSwitches(fromString("0b111101010101")));
-    }
-
-    @Test
     public void leftShiftStepsTest() {
         //Given
         int expected1 = 6;
@@ -202,6 +195,7 @@ public class LightSwitcherTest {
         int actual4 = leftShiftSteps(fromString("11001100"));
         int actual5 = leftShiftSteps(fromString("00001111"));
         int actual6 = leftShiftSteps(fromString("00111100"));
+
 
         //Then
         assertEquals("Number of steps should be 6", expected1, actual1);
